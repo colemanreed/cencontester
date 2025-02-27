@@ -135,58 +135,58 @@ void handleRoot() {
 //
 // Standard Arduino setup() function
 //
-void setup() {
-  Serial.begin(115200);
-  // Wait for serial port to be ready (optional)
-  while (!Serial) {
-    delay(10);
-  }
+// void setup() {
+//   Serial.begin(115200);
+//   // Wait for serial port to be ready (optional)
+//   while (!Serial) {
+//     delay(10);
+//   }
 
-  pixels.begin();
-  for(int i=0; i<16; i++) { // For each pixel...
-    // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-    // Here we're using a moderately bright green color:
-    pixels.setPixelColor(i, pixels.Color(0, 150, 0));
+//   pixels.begin();
+//   for(int i=0; i<16; i++) { // For each pixel...
+//     // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+//     // Here we're using a moderately bright green color:
+//     pixels.setPixelColor(i, pixels.Color(0, 150, 0));
 
-    pixels.show();   // Send the updated pixel colors to the hardware.
+//     pixels.show();   // Send the updated pixel colors to the hardware.
 
-    delay(5); // Pause before next pass through loop
-  }
+//     delay(5); // Pause before next pass through loop
+//   }
 
-  Serial.println("\n--- Starting Camera Web Server ---");
+//   Serial.println("\n--- Starting Camera Web Server ---");
 
-  // Initialize the camera
-  if (camera_init() != ESP_OK) {
-    Serial.println("Camera initialization failed. Halting.");
-    while (true) {
-      delay(1000);
-    }
-  }
+//   // Initialize the camera
+//   if (camera_init() != ESP_OK) {
+//     Serial.println("Camera initialization failed. Halting.");
+//     while (true) {
+//       delay(1000);
+//     }
+//   }
 
-  // Connect to Wi-Fi
-  Serial.printf("Connecting to Wi-Fi network: %s\n", ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.print("Wi-Fi connected. IP address: ");
-  Serial.println(WiFi.localIP());
+//   // Connect to Wi-Fi
+//   Serial.printf("Connecting to Wi-Fi network: %s\n", ssid);
+//   WiFi.begin(ssid, password);
+//   while (WiFi.status() != WL_CONNECTED) {
+//     delay(500);
+//     Serial.print(".");
+//   }
+//   Serial.println("");
+//   Serial.print("Wi-Fi connected. IP address: ");
+//   Serial.println(WiFi.localIP());
 
-  // Define HTTP endpoints
-  server.on("/", HTTP_GET, handleRoot);
-  server.on("/capture", HTTP_GET, handleCapture);
+//   // Define HTTP endpoints
+//   server.on("/", HTTP_GET, handleRoot);
+//   server.on("/capture", HTTP_GET, handleCapture);
 
-  // Start the server
-  server.begin();
-  Serial.println("HTTP server started");
-}
+//   // Start the server
+//   server.begin();
+//   Serial.println("HTTP server started");
+// }
 
 //
 // Standard Arduino loop() function
 //
-void loop() {
-  // Handle incoming HTTP client requests
-  server.handleClient();
-}
+// void loop() {
+//   // Handle incoming HTTP client requests
+//   server.handleClient();
+// }
