@@ -10,3 +10,7 @@ Code for motor controls
 static const int MTR_STEP_PIN = 25;
 static const int MTR_DIR_PIN = 26;
 static const int MTR_ENA_PIN = 27;
+
+void initMotor();
+void motorClockwise(int onTime, int dutyCycle);
+void motorCounterClockwise(int onTime, int dutyCycle);
