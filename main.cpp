@@ -1,3 +1,7 @@
+#include "./solenoids/solenoids.h"
+#include "./motors/motorControl.h"
+#include "./camera/camera.h"
+
 /*
 
 
