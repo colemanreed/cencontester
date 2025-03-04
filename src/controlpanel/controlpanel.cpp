@@ -23,3 +23,4 @@ static const int LED_GREEN_PIN = 17;
 
 void initLCD();
 void initIO(); // for buttons and LEDs
+int getUserCycles();

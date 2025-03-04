@@ -1,6 +1,7 @@
 #include "./solenoids/solenoids.h"
 #include "./motors/motorControl.h"
 #include "./camera/camera.h"
+#include "./controlpanel/controlpanel.h"
 
 /*
 
@@ -16,12 +17,19 @@ int numCycles;
 
 void setup() {
     // initialize all subsystems
-        // wait to make sure initialization is okay
+    initLCD();
+    initIO();
+    initMotor();
+    initSolenoids();
+    initCamera();
+    
+    // wait to make sure initialization is okay
 
     // allow user to set cycles
-    // numCycles = getUserCycles();
+    numCycles = getUserCycles();
 
     // wait for user 'start' input
+    
     // set cycle counter to 0 on LCD
 
 }

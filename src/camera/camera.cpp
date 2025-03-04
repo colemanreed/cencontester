@@ -70,7 +70,7 @@ static camera_config_t camera_config = {
 //
 // Initialize the camera
 //
-esp_err_t camera_init() {
+esp_err_t initCamera() {
   // If a power-down pin is defined, ensure the camera is powered up.
   if (CAM_PIN_PWDN != -1) {
     pinMode(CAM_PIN_PWDN, OUTPUT);
@@ -156,7 +156,7 @@ void handleRoot() {
 //   Serial.println("\n--- Starting Camera Web Server ---");
 
 //   // Initialize the camera
-//   if (camera_init() != ESP_OK) {
+//   if (initCamera() != ESP_OK) {
 //     Serial.println("Camera initialization failed. Halting.");
 //     while (true) {
 //       delay(1000);
