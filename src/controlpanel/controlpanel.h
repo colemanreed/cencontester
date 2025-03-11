@@ -1,3 +1,6 @@
-void initLCD();
-void initIO(); // for buttons and LEDs
+#include <LiquidCrystal.h>
+
+void initControlPanel();
 int getUserCycles();
+void updateCycles();
+void updateLCD();
