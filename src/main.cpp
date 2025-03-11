@@ -17,11 +17,11 @@ int numCycles;
 
 void setup() {
     // initialize all subsystems
-    initLCD();
-    initIO();
+    initControlPanel();
     initMotor();
     initSolenoids();
     initCamera();
+    initBoltDetector();
     
     // wait to make sure initialization is okay
 
