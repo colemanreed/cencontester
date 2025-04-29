@@ -150,7 +150,7 @@ void loop() {
         motorCounterClockwise(2000);
 
         delay(2000);
-        if(!getUpState()) {
+        if(readBoltDetector()) {
             passedCycles++;
             updateLED(1);
             delay(2000);
