@@ -69,23 +69,3 @@ void motorCounterClockwise(int onTime) {
         stopTime = millis();
     }
 }
-
-void infiniteClockwise(bool val) {
-    digitalWrite(MTR_DIR_PIN, LOW);
-    while(!val) {
-        digitalWrite(MTR_STEP_PIN, HIGH);
-        delayMicroseconds(10);
-        digitalWrite(MTR_STEP_PIN, LOW);
-        delayMicroseconds(10);
-    }
-}
-
-void infiniteCounterClockwise(bool val) {
-    digitalWrite(MTR_DIR_PIN, HIGH);
-    while(!val) {
-        digitalWrite(MTR_STEP_PIN, HIGH);
-        delayMicroseconds(10);
-        digitalWrite(MTR_STEP_PIN, LOW);
-        delayMicroseconds(10);
-    }
-}

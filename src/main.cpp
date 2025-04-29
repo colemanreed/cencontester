@@ -15,13 +15,6 @@ int passedCycles;
 int numCycles;
 int failedCycles;
 
-// for updateLED:
-// 0 - none
-// 1 - success
-// 2 - fail
-// 3 - progress
-// else - all on
-
 void setup() {
     Serial.begin(115200);
     delay(1000);
@@ -40,6 +33,7 @@ void setup() {
     // wait to make sure initialization is okay
     delay(50);
 
+    // all LEDs on during setup
     updateLED(4);
     
     Serial.println("Set cycle loop begin");
@@ -48,32 +42,32 @@ void setup() {
         updateCycles();
     }
     Serial.println("Set cycle loop end");
+
     numCycles = getUserCycles();
     Serial.println(numCycles);
-    // set cycle counter to 0 on LCD
-    // currently only displays num of total cycles
+    
+    // TODO set cycle counter to 0 on LCD
 
     completedCycles = passedCycles = failedCycles = 0;
-
 }
 
 void loop() {
     Serial.println("Main program loop begin");
+
+    // initial charging to be ran once
     Serial.println("Initial charging");
     motorClockwise(5000);
     delay(500);
     motorCounterClockwise(5000);
     delay(500);
-    // motorClockwise(5000);
-    // delay(500);
-    // motorCounterClockwise(5000);
-    // delay(500);
-    // motorClockwise(5000);
+
     while(completedCycles < numCycles) {
+        // in progress LED on
         updateLED(3);
         String response;
-        Serial.println("Startin cycle " + (String)(completedCycles + 1));
+        Serial.println("Starting cycle " + (String)(completedCycles + 1));
         updateLCD("Cycle: " + (completedCycles+1));
+
         // begin spinning motor
         motorClockwise(5000);
         delay(500);
@@ -81,7 +75,7 @@ void loop() {
         delay(500);
         motorClockwise(5000);
 
-        Serial.println("Ready to go");
+        Serial.println("Motor done spinning");
 
         // wait for camera to detect 'EC' on keypad
         Serial.println("TAKE_PIC");
@@ -91,7 +85,7 @@ void loop() {
             response = Serial.readStringUntil('\n');
             response.trim();
         }
-        response = "['E']"; // DEBUG
+        // response = "['E']"; // DEBUG
         if(response.indexOf('E') == -1) {
             Serial.println("Trying EC read again");
             Serial.println("PROCESS_PIC");
@@ -127,7 +121,7 @@ void loop() {
             response = Serial.readStringUntil('\n');
             response.trim();
         }
-        response = "['O']"; // DEBUG
+        // response = "['O']"; // DEBUG
         if(response.indexOf('O') == -1) {
             Serial.println("Trying Opr read again");
             Serial.println("PROCESS_PIC");
@@ -151,55 +145,37 @@ void loop() {
 
         delay(5000);
 
-        // while(!getStartState()) {
-        //     while(getUpState()) {
-        //         infiniteClockwise(getUpState);
-        //     } while(getDownState()) {
-        //         infiniteCounterClockwise(getDownState);
-        //     }
-        // }
-        // spin motor clockwise
+        // spin motor counterclockwise
         // wait for break beam sensor to confirm lock bolt disengaged
         motorCounterClockwise(2000);
-        // if lock bolt disengaged
-            // increment passed test counter by 1
-            // spin motor counterclockwise (to engage lock)
-        // else (lock bolt is still engaged)
-            // increment failed test counter by 1
 
-            // while(!getStartState()) {
-            //     while(getUpState()) {
-            //         infiniteClockwise(getUpState);
-            //     } while(getDownState()) {
-            //         infiniteCounterClockwise(getDownState);
-            //     }
-            // }
         delay(2000);
-        motorClockwise(2000);
         if(!getUpState()) {
             passedCycles++;
             updateLED(1);
-            delay(5000);
+            delay(2000);
         } else {
             Serial.println("Failed on bolt detector");
             failedCycles++;
             updateLED(2);
-            delay(5000);
+            delay(2000);
         }
 
-
+        // extend bolt
+        motorClockwise(2000);
 
         // increment cycle counter by 1
         completedCycles++;
 
-        while(!getStartState());
+        // while(!getStartState()); //DEBUG
+
         Serial.println("Completed Cycles: " + (String)completedCycles);
         Serial.println("Passed Cycles: " + (String)passedCycles);
         Serial.println("Failed Cycles: " + (String)failedCycles);
     }
 
-    // testing is completed, display summary on LCD
-    // wait for user to press start again
+    // testing is completed
+    // TODO display summary on LCD
 
     Serial.println("Completed Cycles: " + (String)completedCycles);
     Serial.println("Passed Cycles: " + (String)passedCycles);

@@ -45,6 +45,7 @@ const unsigned long debounceDelay = 50;     // Debounce delay (50ms)
 
 void initControlPanel() {
 
+    // TODO fix LCD?
     //LiquidCrystal lcd(LCD_RST_PIN, LCD_ENA_PIN, LCD_D4_PIN, LCD_D5_PIN, LCD_D6_PIN, LCD_D7_PIN);
 
 
@@ -60,13 +61,9 @@ void initControlPanel() {
     pinMode(START_PIN, INPUT);
     pinMode(STOP_PIN, INPUT);
 
-    Serial.println("Im in control panel setup");
-
     pinMode(LED_GREEN_PIN, OUTPUT);
     pinMode(LED_YELLOW_PIN, OUTPUT);
     pinMode(LED_RED_PIN, OUTPUT);
-
-    Serial.println("Leaving control panel setup");
 
     //Display the initial cycle value
     // lcd.setCursor(0, 1);
